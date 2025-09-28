@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1016636694495",
+    "project_id": "visionhive-e4883",
+    "storage_bucket": "visionhive-e4883.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016636694495:android:f858e514a3371b60156e6a",
+        "android_client_info": {
+          "package_name": "com.company.visionhive"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsmADb2ZeJuYZ8wXrfP8eAxvjfXUpalRE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

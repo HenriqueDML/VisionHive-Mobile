@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
 import AppNavigator from './navigation/AppNavigator';
-
+import { AuthProvider } from "./hooks/auth";
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { FilialProvider } from './context/FilialContext';
 import { PatioProvider } from './context/PatioContext';
@@ -19,14 +19,16 @@ const AppContent = () => {
 
 export default function App() {
   return (
-    <ThemeProvider> 
-      <FilialProvider>
-        <PatioProvider>
-          <MotoProvider>
-            <AppContent />
-          </MotoProvider>
-        </PatioProvider>
-      </FilialProvider>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider> 
+        <FilialProvider>
+          <PatioProvider>
+            <MotoProvider>
+              <AppContent />
+            </MotoProvider>
+          </PatioProvider>
+        </FilialProvider>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }

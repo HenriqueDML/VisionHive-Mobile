@@ -1,133 +1,157 @@
 import React, { useState } from 'react';
 import { 
-    View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, Image 
+  View, Text, ScrollView, StyleSheet, TouchableOpacity, ActivityIndicator, Image, Alert 
 } from 'react-native';
-
+import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../../context/ThemeContext';
+import { useAuth } from '../../hooks/auth';
+import MailIcon from '../../assets/mail-01.svg';
+import LockUnlocked from '../../assets/lock-unlocked-04.svg';
+import { Input } from '../../components/Inputs/Input';
+import { Button } from '../../components/Buttons/Button';
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = () => {
+  const navigation = useNavigation();
   const { colors } = useTheme();
   const styles = getStyles(colors);
-  
+  const { login } = useAuth();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  
+  const validateEmail = (text) => {
+    setEmail(text);
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setEmailError(!regex.test(text) ? 'Email inválido, formato: email@email.com' : '');
+  };
+
+  const validatePassword = (text) => {
+    setPassword(text);
+    setPasswordError(text.length < 6 ? 'Senha deve ter pelo menos 6 caracteres' : '');
+  };
+
   const handleLogin = async () => {
-    if (email === '' || password === '') {
-        Alert.alert('Erro', 'Por favor, preencha o e-mail e a senha.');
-        return;
-    }
+    let valid = true;
+
+    if (!email) {
+      setEmailError('Preencha o email');
+      valid = false;
+    } else if (emailError) valid = false;
+
+    if (!password) {
+      setPasswordError('Preencha a senha');
+      valid = false;
+    } else if (passwordError) valid = false;
+
+    if (!valid) return;
+
     setLoading(true);
     try {
-        console.log("Simulando login com:", email, password);
-        setTimeout(() => {
-            navigation.replace('MainMenu'); 
-            setLoading(false);
-        }, 1500);
+      await login({ email, password });
+
+      Alert.alert('Sucesso', 'Login realizado com sucesso!');
+      navigation.replace('MainMenu');
     } catch (error) {
-        setLoading(false);
-        Alert.alert('Erro no Login', 'Verifique suas credenciais e tente novamente.');
+      if (error?.code === 'auth/user-not-found') setEmailError('Usuário não encontrado');
+      else if (error?.code === 'auth/wrong-password') setPasswordError('Senha incorreta');
+      else Alert.alert('Erro', error.message || 'Algo deu errado');
+    } finally {
+      setLoading(false);
     }
   };
-  
+
   return (
-    <View style={styles.container}>
-        <Image
-            source={require('../../assets/icons/logovision.jpg')}
-            style={styles.logo}
-        />
+    <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', padding: 20 }} keyboardShouldPersistTaps="handled">
+      <Image source={require('../../assets/icons/logovision.jpg')} style={styles.logo} />
 
-        <Text style={styles.title}>Vision Hive</Text>
-        <Text style={styles.subtitle}>Acesse sua conta</Text>
+      <Text style={styles.title}>Vision Hive</Text>
+      <Text style={styles.subtitle}>Acesse sua conta</Text>
 
-        <TextInput
-            style={styles.input}
-            placeholder="E-mail"
-            placeholderTextColor={colors.secondary}
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            autoCapitalize="none"
-        />
-        <TextInput
-            style={styles.input}
-            placeholder="Senha"
-            placeholderTextColor={colors.secondary}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-        />
+      <Input
+        title="Email"
+        icon={MailIcon}
+        placeholder="Digite seu email"
+        value={email}
+        onChangeText={validateEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
+        placeholderTextColor="#666"
+        titleStyle={{ color: '#000' }}
+      />
+      {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
 
-        {loading ? (
-            <ActivityIndicator size="large" color={colors.primary} />
-        ) : (
-            <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                <Text style={styles.buttonText}>Entrar</Text>
-            </TouchableOpacity>
-        )}
-        
+      <Input
+        title="Senha"
+        icon={LockUnlocked}
+        placeholder="Digite sua senha"
+        value={password}
+        onChangeText={validatePassword}
+        secureTextEntry
+        placeholderTextColor="#666"
+        titleStyle={{ color: '#000' }}
+      />
+      {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
+
+      <Button label={loading ? '' : 'Entrar'} onPress={handleLogin} style={styles.button}>
+        {loading && <ActivityIndicator color="#fff" />}
+      </Button>
+
+      <View style={styles.registerRedirect}>
+        <Text style={styles.noAccountText}>Não possui uma conta?</Text>
         <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.linkText}>Não tem uma conta? Cadastre-se</Text>
+          <Text style={styles.registerText}>Cadastre-se</Text>
         </TouchableOpacity>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 
 const getStyles = (colors) => StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
   logo: {
     width: 100,
     height: 100,
     marginBottom: 20,
     resizeMode: 'contain',
+    alignSelf: 'center',
   },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: colors.text,
-    marginBottom: 10,
+    color: '#333',
+    marginBottom: 4,
+    textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
-    color: colors.secondary,
-    marginBottom: 40,
-  },
-  input: {
-    width: '100%',
-    height: 50,
-    backgroundColor: colors.cardBackground,
-    borderRadius: 10,
-    paddingHorizontal: 15,
-    marginVertical: 10,
-    color: colors.text,
-    borderColor: colors.borderColor,
-    borderWidth: 1,
+    color: '#666',
+    marginBottom: 20,
+    textAlign: 'center',
   },
   button: {
-    width: '100%',
-    height: 50,
-    backgroundColor: colors.primary,
+    backgroundColor: '#008000',
     borderRadius: 10,
+    paddingVertical: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 12,
+  },
+  registerRedirect: {
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
+    gap: 4,
+    marginTop: 14,
   },
-  buttonText: {
-    color: colors.buttonText,
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  linkText: {
-    color: colors.primary,
-    marginTop: 20,
+  noAccountText: { color: '#333', fontSize: 12 },
+  registerText: { color: '#008000', fontWeight: '600', fontSize: 12 },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    marginTop: -4,
+    marginBottom: 8,
   },
 });
 
