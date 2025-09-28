@@ -12,18 +12,11 @@ import {
   Button,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-
-// Importa nosso novo layout!
 import ScreenLayout from '../components/ScreenLayout';
-// Removemos a importação de Header, Footer e SafeAreaView daqui
-
 import { usePatio } from '../context/PatioContext';
 import { useFilial } from '../context/FilialContext';
 import { useTheme } from '../context/ThemeContext';
 
-// --- Componente do Formulário ---
-// Para o formulário do modal, é mais simples usar cores fixas, pois ele
-// aparece por cima do tema e geralmente tem um padrão (fundo branco).
 const PatioForm = ({ modalVisible, setModalVisible, patioSelecionado, salvarPatio, filiais }) => {
   const [nome, setNome] = useState('');
   const [limiteMotos, setLimiteMotos] = useState('');
@@ -97,8 +90,6 @@ const PatioForm = ({ modalVisible, setModalVisible, patioSelecionado, salvarPati
   );
 };
 
-
-// --- Componente Principal da Tela ---
 const PatioScreen = () => {
   const { colors } = useTheme();
   const styles = getStyles(colors);
@@ -167,8 +158,6 @@ const PatioScreen = () => {
       <TouchableOpacity style={styles.addButton} onPress={handleAdicionar}>
         <Text style={styles.addButtonText}>+ Adicionar Novo Pátio</Text>
       </TouchableOpacity>
-      
-      {/* A FlatList agora vive dentro do ScreenLayout, que gerencia o espaço corretamente */}
       {loading ? (
           <View style={styles.centeredContent}><ActivityIndicator size="large" color={colors.text} /></View>
       ) : error ? (
@@ -197,7 +186,6 @@ const PatioScreen = () => {
   );
 };
 
-// Uma função que gera os estilos dinâmicos baseados no tema
 const getStyles = (colors) => StyleSheet.create({
   centeredContent: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   errorText: { color: colors.text, marginBottom: 10 },
@@ -209,7 +197,6 @@ const getStyles = (colors) => StyleSheet.create({
   itemActions: { flexDirection: 'column' },
 });
 
-// Estilos fixos para o modal, que não mudam com o tema
 const formStyles = StyleSheet.create({
   centeredView: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0, 0, 0, 0.5)' },
   modalView: { margin: 20, width: '90%', backgroundColor: "white", borderRadius: 20, padding: 35, alignItems: "center", elevation: 5 },

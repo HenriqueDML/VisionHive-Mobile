@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { 
     View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, Image 
-} from 'react-native'; // 1. Adicionado 'Image' aos imports
+} from 'react-native';
 
 import { useTheme } from '../context/ThemeContext';
-// import { useAuth } from '../context/AuthContext';
 
 const LoginScreen = ({ navigation }) => {
   const { colors } = useTheme();
@@ -14,7 +13,6 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // const { signIn } = useAuth();
   
   const handleLogin = async () => {
     if (email === '' || password === '') {
@@ -36,7 +34,6 @@ const LoginScreen = ({ navigation }) => {
   
   return (
     <View style={styles.container}>
-        {/* 2. ADICIONADO O LOGO AQUI */}
         <Image
             source={require('../assets/icons/logovision.jpg')}
             style={styles.logo}
@@ -78,7 +75,6 @@ const LoginScreen = ({ navigation }) => {
   );
 };
 
-// Gera os estilos dinâmicos baseados no tema
 const getStyles = (colors) => StyleSheet.create({
   container: {
     flex: 1,
@@ -87,11 +83,10 @@ const getStyles = (colors) => StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
-  // 3. ESTILO PARA O LOGO
   logo: {
     width: 100,
     height: 100,
-    marginBottom: 20, // Espaço entre o logo e o título
+    marginBottom: 20,
     resizeMode: 'contain',
   },
   title: {

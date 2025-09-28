@@ -20,10 +20,10 @@ const ScreenLayout = ({ children, title, showFooter = true }) => {
 
 const styles = StyleSheet.create({
   safeArea: {
-    flex: 1, // Ocupa a tela inteira
+    flex: 1,
   },
   contentContainer: {
-    flex: 1, // << ESSA É A MÁGICA! Ocupa todo o espaço disponível entre Header e Footer
+    flex: 1,
   },
 });
 

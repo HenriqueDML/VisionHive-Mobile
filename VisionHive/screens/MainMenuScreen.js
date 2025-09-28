@@ -34,10 +34,7 @@ const MainMenuScreen = ({ navigation }) => {
         </View>
       </View>
       
-      {/* --- MUDANÇA PRINCIPAL AQUI --- */}
-      {/* Adicionamos uma View vazia no final para simular o Footer */}
       <View style={[styles.footer, { backgroundColor: colors.primary }]} />
-      {/* --------------------------------- */}
 
     </SafeAreaView>
   );
@@ -49,10 +46,8 @@ const styles = StyleSheet.create({
   buttonContainer: { width: '80%', marginVertical: 10, },
   themeToggleContainer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '80%', position: 'absolute', top: 20, },
 
-  // --- E AQUI ---
-  // Adicionamos o estilo para a View do footer
   footer: {
-    height: 80, // Mesma altura do Footer original para consistência
+    height: 80,
     width: '100%',
   },
 });

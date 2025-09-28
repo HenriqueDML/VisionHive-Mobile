@@ -22,32 +22,23 @@ export const MotoProvider = ({ children }) => {
     }
   };
 
-  // Dentro de visionhive/context/MotoContext.js
-
 const adicionarMoto = async (novaMoto) => {
     try {
       setLoading(true);
-      // Espião 1: Vamos ver EXATAMENTE o que estamos enviando para a API
       console.log('➡️ Enviando dados para criar moto:', JSON.stringify(novaMoto, null, 2));
       await api.post('/motos', novaMoto);
       await listarMotos();
     } catch (err) {
       console.error('❌ ERRO ao adicionar moto!');
-      // Espião 2: Vamos investigar a resposta do erro em detalhes
       if (err.response) {
-        // A requisição foi feita e o servidor respondeu com um status code
-        // que não é da faixa 2xx
         console.error('Dados do erro:', err.response.data);
         console.error('Status do erro:', err.response.status);
         Alert.alert('Erro ao Adicionar', `Erro ${err.response.status}: ${JSON.stringify(err.response.data)}`);
       } else if (err.request) {
-        // A requisição foi feita mas nenhuma resposta foi recebida
         console.error('Requisição do erro:', err.request);
       } else {
-        // Algo aconteceu na configuração da requisição que acionou um erro
         console.error('Mensagem de Erro:', err.message);
       }
-      throw err; // Re-lança o erro para a tela tratar se necessário
     } finally {
       setLoading(false);
     }
@@ -97,7 +88,6 @@ const adicionarMoto = async (novaMoto) => {
   );
 };
 
-// Hook customizado
 export function useMoto() {
   const context = useContext(MotoContext);
   if (!context) {

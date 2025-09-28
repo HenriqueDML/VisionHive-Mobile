@@ -1,17 +1,14 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { lightTheme, darkTheme } from '../themes/colors'; // Confirme se o caminho está correto
+import { lightTheme, darkTheme } from '../themes/colors';
 
-// 1. Criar o Contexto
 export const ThemeContext = createContext();
 
-// 2. Criar o Provedor
 export const ThemeProvider = ({ children }) => {
-  const systemScheme = useColorScheme(); // Pega o tema do sistema operacional ('light' ou 'dark')
-  const [themeName, setThemeName] = useState(systemScheme); // O estado guarda o NOME do tema ('light' ou 'dark')
+  const systemScheme = useColorScheme();
+  const [themeName, setThemeName] = useState(systemScheme);
 
-  // Efeito para carregar a preferência do usuário salva no dispositivo
   useEffect(() => {
     const loadTheme = async () => {
       try {
@@ -26,7 +23,6 @@ export const ThemeProvider = ({ children }) => {
     loadTheme();
   }, []);
 
-  // Função para trocar o tema e salvar a preferência
   const toggleTheme = async () => {
     const newThemeName = themeName === 'light' ? 'dark' : 'light';
     setThemeName(newThemeName);
@@ -37,14 +33,12 @@ export const ThemeProvider = ({ children }) => {
     }
   };
   
-  // Com base no NOME do tema, selecionamos o OBJETO de cores correto
   const colors = themeName === 'light' ? lightTheme : darkTheme;
 
-  // Disponibilizamos tudo que os componentes filhos precisam
   const value = {
-    themeName, // O nome: 'light' ou 'dark'
-    colors,    // O objeto com as cores
-    toggleTheme, // A função para trocar
+    themeName,
+    colors,
+    toggleTheme,
   };
   
   return (
@@ -52,7 +46,6 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
-// 3. Criar o Hook customizado para facilitar o uso
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {

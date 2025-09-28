@@ -2,7 +2,6 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-// Importe suas telas
 import LoginScreen from '../screens/LoginScreen';
 import MainMenuScreen from '../screens/MainMenuScreen';
 import FilialScreen from '../screens/FilialScreen';
@@ -16,9 +15,9 @@ const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator 
-        initialRouteName="Login" // A primeira tela é Login
+        initialRouteName="Login"
         screenOptions={{
-          headerShown: false, // Vamos usar nosso próprio Header
+          headerShown: false,
         }}
       >
         <Stack.Screen name="Register" component={RegisterScreen} />

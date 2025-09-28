@@ -8,8 +8,6 @@ export const PatioProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // --- Funções CRUD ---
-
   const listarPatios = async () => {
     setLoading(true);
     setError(null);
@@ -27,7 +25,7 @@ export const PatioProvider = ({ children }) => {
   const adicionarPatio = async (novoPatio) => {
     try {
       setLoading(true);
-      await api.post('/patios', novoPatio); // novoPatio: { nome, limiteMotos, filialId }
+      await api.post('/patios', novoPatio);
       await listarPatios();
     } catch (err) {
       console.error('Erro ao adicionar pátio:', err);
@@ -81,7 +79,6 @@ export const PatioProvider = ({ children }) => {
   );
 };
 
-// Hook customizado
 export function usePatio() {
   const context = useContext(PatioContext);
   if (!context) {

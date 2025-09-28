@@ -7,10 +7,7 @@ const Header = ({ title }) => {
 
   return (
     <SafeAreaView style={{ backgroundColor: colors.primary }}>
-      {/* O container agora usa 'center' para o justifyContent */}
       <View style={[styles.headerContainer, { backgroundColor: colors.primary }]}>
-        
-        {/* Usamos o seu logo JPG, que não precisa de tintColor */}
         <Image
             source={require('../assets/icons/logovision.jpg')} 
             style={styles.logo}
@@ -26,16 +23,16 @@ const styles = StyleSheet.create({
   headerContainer: {
     height: 80,
     width: '100%',
-    flexDirection: 'row',   // Itens lado a lado
-    justifyContent: 'center', // << Centraliza horizontalmente
-    alignItems: 'center',   // << Centraliza verticalmente
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingTop: StatusBar.currentHeight > 30 ? 0 : StatusBar.currentHeight,
   },
   logo: {
       width: 40,
       height: 40,
       resizeMode: 'contain',
-      marginRight: 10, // << Adiciona um espaço entre o logo e o título
+      marginRight: 10,
   },
   title: {
     fontSize: 22,

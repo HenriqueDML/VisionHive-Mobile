@@ -1,6 +1,3 @@
-// visionhive/context/FilialContext.js - VERSÃO ATUALIZADA
-
-// ... (todo o código do import, createContext, useState, useEffect, etc. permanece igual)
 import React, { createContext, useState, useEffect, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../services/api";
@@ -12,19 +9,13 @@ export const FilialProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // --- A parte de selecionar filial continua igual ---
   const [filialSelecionada, setFilialSelecionada] = useState(null);
   useEffect(() => {
-    /*...*/
   }, []);
   const selecionarFilial = async (novaFilial) => {
-    /*...*/
   };
   const limparSelecaoFilial = async () => {
-    /*...*/
   };
-
-  // --- Funções CRUD ---
 
   const listarFiliais = async () => {
     console.log("--- Iniciando busca de filiais... ---");
@@ -45,19 +36,17 @@ export const FilialProvider = ({ children }) => {
 
   const adicionarFilial = async (novaFilial) => {
     try {
-      // Inicia o loading APENAS para esta ação, deixando a lista visível
       setLoading(true);
       await api.post("/filiais", novaFilial);
-      await listarFiliais(); // Atualiza a lista completa após o sucesso
+      await listarFiliais();
     } catch (err) {
       console.error("Erro ao adicionar filial:", err);
-      throw err; // Lança o erro para a tela tratar (ex: mostrar um Alert)
+      throw err;
     } finally {
       setLoading(false);
     }
   };
 
-  // ✅ NOVA FUNÇÃO - ATUALIZAR
   const atualizarFilial = async (id, dadosFilial) => {
     try {
       setLoading(true);
@@ -71,16 +60,13 @@ export const FilialProvider = ({ children }) => {
     }
   };
 
-  // ✅ NOVA FUNÇÃO - REMOVER
   const removerFilial = async (id) => {
     try {
       setLoading(true);
       await api.delete(`/filiais/${id}`);
-      // Opcional: atualização otimista da UI para resposta mais rápida
       setFiliais(filiais.filter((f) => f.id !== id));
     } catch (err) {
       console.error(`Erro ao remover filial ${id}:`, err);
-      // Em caso de erro, busca a lista novamente para garantir a consistência
       await listarFiliais();
       throw err;
     } finally {
@@ -91,7 +77,6 @@ export const FilialProvider = ({ children }) => {
   return (
     <FilialContext.Provider
       value={{
-        // ... (as props existentes)
         filiais,
         loading,
         error,
@@ -102,7 +87,6 @@ export const FilialProvider = ({ children }) => {
         selecionarFilial,
         limparSelecaoFilial,
 
-        // ✅ EXPOR AS NOVAS FUNÇÕES
         atualizarFilial,
         removerFilial,
       }}

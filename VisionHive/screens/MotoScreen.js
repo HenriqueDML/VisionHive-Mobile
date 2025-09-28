@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-import ScreenLayout from '../components/ScreenLayout'; // Nosso layout padrão
+import ScreenLayout from '../components/ScreenLayout';
 import { useMoto } from '../context/MotoContext';
 import { usePatio } from '../context/PatioContext';
 import { useTheme } from '../context/ThemeContext';
@@ -30,7 +30,6 @@ const getPrioridadeTexto = (prioridadeValue) => {
     return 'Desconhecida';
 };
 
-// --- Componente do Formulário ---
 const MotoForm = ({ modalVisible, setModalVisible, motoSelecionada, salvarMoto, patios }) => {
   const [placa, setPlaca] = useState('');
   const [chassi, setChassi] = useState('');
@@ -94,8 +93,6 @@ const MotoForm = ({ modalVisible, setModalVisible, motoSelecionada, salvarMoto, 
   );
 };
 
-
-// --- Componente Principal da Tela ---
 const MotoScreen = () => {
   const { colors } = useTheme();
   const styles = getStyles(colors);
@@ -180,8 +177,6 @@ const MotoScreen = () => {
   );
 };
 
-
-// Gera os estilos dinâmicos baseados no tema
 const getStyles = (colors) => StyleSheet.create({
   centeredContent: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   errorText: { color: colors.text, marginBottom: 10 },
@@ -193,7 +188,6 @@ const getStyles = (colors) => StyleSheet.create({
   itemActions: { flexDirection: 'column' },
 });
 
-// Estilos fixos para o modal
 const formStyles = StyleSheet.create({
     centeredView: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0, 0, 0, 0.5)' },
     modalView: { margin: 20, width: '90%', backgroundColor: "white", borderRadius: 20, padding: 35, alignItems: "center", elevation: 5 },

@@ -12,11 +12,10 @@ import {
   Button,
 } from 'react-native';
 
-import ScreenLayout from '../components/ScreenLayout'; // Nosso layout padrão
+import ScreenLayout from '../components/ScreenLayout';
 import { useFilial } from '../context/FilialContext';
 import { useTheme } from '../context/ThemeContext';
 
-// --- Componente do Formulário ---
 const FilialForm = ({ modalVisible, setModalVisible, filialSelecionada, salvarFilial }) => {
   const [nome, setNome] = useState('');
   const [bairro, setBairro] = useState('');
@@ -80,8 +79,6 @@ const FilialForm = ({ modalVisible, setModalVisible, filialSelecionada, salvarFi
   );
 };
 
-
-// --- Componente Principal da Tela ---
 const FilialScreen = () => {
   const { colors } = useTheme();
   const styles = getStyles(colors);
@@ -173,7 +170,6 @@ const FilialScreen = () => {
   );
 };
 
-// Gera os estilos dinâmicos baseados no tema
 const getStyles = (colors) => StyleSheet.create({
   centeredContent: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   errorText: { color: colors.text, marginBottom: 10 },
@@ -185,7 +181,6 @@ const getStyles = (colors) => StyleSheet.create({
   itemActions: { flexDirection: 'column' },
 });
 
-// Estilos fixos para o modal
 const formStyles = StyleSheet.create({
   centeredView: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0, 0, 0, 0.5)' },
   modalView: { margin: 20, width: '90%', backgroundColor: "white", borderRadius: 20, padding: 35, alignItems: "center", elevation: 5 },
