@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, SafeAreaView, Switch } from 'react-native';
-import Header from '../components/Header';
-import { useTheme } from '../context/ThemeContext';
+import Header from '../../components/Header';
+import { useTheme } from '../../context/ThemeContext';
 
 const MainMenuScreen = ({ navigation }) => {
   const { themeName, colors, toggleTheme } = useTheme();

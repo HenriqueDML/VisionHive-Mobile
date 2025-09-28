@@ -12,10 +12,10 @@ import {
   Button,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import ScreenLayout from '../components/ScreenLayout';
-import { usePatio } from '../context/PatioContext';
-import { useFilial } from '../context/FilialContext';
-import { useTheme } from '../context/ThemeContext';
+import ScreenLayout from '../../components/ScreenLayout';
+import { usePatio } from '../../context/PatioContext';
+import { useFilial } from '../../context/FilialContext';
+import { useTheme } from '../../context/ThemeContext';
 
 const PatioForm = ({ modalVisible, setModalVisible, patioSelecionado, salvarPatio, filiais }) => {
   const [nome, setNome] = useState('');

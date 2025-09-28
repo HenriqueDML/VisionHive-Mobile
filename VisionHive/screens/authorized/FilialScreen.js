@@ -12,9 +12,9 @@ import {
   Button,
 } from 'react-native';
 
-import ScreenLayout from '../components/ScreenLayout';
-import { useFilial } from '../context/FilialContext';
-import { useTheme } from '../context/ThemeContext';
+import ScreenLayout from '../../components/ScreenLayout';
+import { useFilial } from '../../context/FilialContext';
+import { useTheme } from '../../context/ThemeContext';
 
 const FilialForm = ({ modalVisible, setModalVisible, filialSelecionada, salvarFilial }) => {
   const [nome, setNome] = useState('');

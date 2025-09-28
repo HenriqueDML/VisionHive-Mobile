@@ -16,12 +16,25 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.company.visionhive",
+      "googleServicesFile": "./visionhive/firebase/google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true
     },
+        "plugins": [
+      "expo-font",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ],
     "web": {
       "favicon": "./assets/favicon.png"
     }

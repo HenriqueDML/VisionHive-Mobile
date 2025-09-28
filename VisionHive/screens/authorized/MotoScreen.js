@@ -13,10 +13,10 @@ import {
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-import ScreenLayout from '../components/ScreenLayout';
-import { useMoto } from '../context/MotoContext';
-import { usePatio } from '../context/PatioContext';
-import { useTheme } from '../context/ThemeContext';
+import ScreenLayout from '../../components/ScreenLayout';
+import { useMoto } from '../../context/MotoContext';
+import { usePatio } from '../../context/PatioContext';
+import { useTheme } from '../../context/ThemeContext';
 
 const PRIORIDADES_OPCOES = ['Baixa', 'Media', 'Alta', 'Sucata'];
 

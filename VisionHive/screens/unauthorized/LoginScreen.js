@@ -3,7 +3,7 @@ import {
     View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, Image 
 } from 'react-native';
 
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../../context/ThemeContext';
 
 const LoginScreen = ({ navigation }) => {
   const { colors } = useTheme();
@@ -35,7 +35,7 @@ const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
         <Image
-            source={require('../assets/icons/logovision.jpg')}
+            source={require('../../assets/icons/logovision.jpg')}
             style={styles.logo}
         />
 
