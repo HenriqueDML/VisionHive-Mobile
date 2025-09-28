@@ -7,6 +7,7 @@ import MainMenuScreen from '../screens/authorized/MainMenuScreen';
 import FilialScreen from '../screens/authorized/FilialScreen';
 import PatioScreen from '../screens/authorized/PatioScreen';
 import MotoScreen from '../screens/authorized/MotoScreen';
+import PerfilScreen from '../screens/authorized/PerfilScreen';
 import RegisterScreen from '../screens/unauthorized/RegisterScreen';
 
 const Stack = createNativeStackNavigator();
@@ -26,6 +27,7 @@ const AppNavigator = () => {
         <Stack.Screen name="Filiais" component={FilialScreen} />
         <Stack.Screen name="Patios" component={PatioScreen} />
         <Stack.Screen name="Motos" component={MotoScreen} />
+        <Stack.Screen name="Perfil" component={PerfilScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

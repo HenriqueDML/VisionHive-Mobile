@@ -96,7 +96,7 @@ const PatioScreen = () => {
 
   const { patios, loading, error, listarPatios, adicionarPatio, atualizarPatio, removerPatio } = usePatio();
   const { filiais, listarFiliais: carregarFiliais } = useFilial();
-  
+
   const [modalVisible, setModalVisible] = useState(false);
   const [patioSelecionado, setPatioSelecionado] = useState(null);
 
@@ -134,7 +134,7 @@ const PatioScreen = () => {
       Alert.alert('Erro ao salvar', 'Não foi possível salvar os dados do pátio.');
     }
   };
-  
+
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
       <View>
@@ -159,27 +159,27 @@ const PatioScreen = () => {
         <Text style={styles.addButtonText}>+ Adicionar Novo Pátio</Text>
       </TouchableOpacity>
       {loading ? (
-          <View style={styles.centeredContent}><ActivityIndicator size="large" color={colors.text} /></View>
+        <View style={styles.centeredContent}><ActivityIndicator size="large" color={colors.text} /></View>
       ) : error ? (
-          <View style={styles.centeredContent}>
-              <Text style={styles.errorText}>{error}</Text>
-              <Button title="Tentar Novamente" onPress={listarPatios} color={colors.primary} />
-          </View>
+        <View style={styles.centeredContent}>
+          <Text style={styles.errorText}>{error}</Text>
+          <Button title="Tentar Novamente" onPress={listarPatios} color={colors.primary} />
+        </View>
       ) : (
-          <FlatList
-            data={patios}
-            renderItem={renderItem}
-            keyExtractor={item => item.id.toString()}
-          />
+        <FlatList
+          data={patios}
+          renderItem={renderItem}
+          keyExtractor={item => item.id.toString()}
+        />
       )}
-      
+
       {modalVisible && (
-        <PatioForm 
-            modalVisible={modalVisible}
-            setModalVisible={setModalVisible}
-            patioSelecionado={patioSelecionado}
-            salvarPatio={handleSalvarPatio}
-            filiais={filiais}
+        <PatioForm
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          patioSelecionado={patioSelecionado}
+          salvarPatio={handleSalvarPatio}
+          filiais={filiais}
         />
       )}
     </ScreenLayout>
@@ -201,10 +201,10 @@ const formStyles = StyleSheet.create({
   centeredView: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0, 0, 0, 0.5)' },
   modalView: { margin: 20, width: '90%', backgroundColor: "white", borderRadius: 20, padding: 35, alignItems: "center", elevation: 5 },
   modalText: { marginBottom: 15, textAlign: "center", fontSize: 20, fontWeight: 'bold', color: '#000' },
-  input: { height: 40, borderColor: 'gray', borderWidth: 1, width: '100%', marginBottom: 15, padding: 10, borderRadius: 5, color: '#000'},
+  input: { height: 40, borderColor: 'gray', borderWidth: 1, width: '100%', marginBottom: 15, padding: 10, borderRadius: 5, color: '#000' },
   modalButtons: { flexDirection: 'row', justifyContent: 'space-around', width: '60%' },
   pickerLabel: { alignSelf: 'flex-start', color: '#333', marginBottom: 5 },
-  pickerContainer: { height: 50, width: '100%', borderColor: 'gray', borderWidth: 1, borderRadius: 5, marginBottom: 15, justifyContent: 'center'},
+  pickerContainer: { height: 50, width: '100%', borderColor: 'gray', borderWidth: 1, borderRadius: 5, marginBottom: 15, justifyContent: 'center' },
   picker: { height: 50, width: '100%', color: '#000' },
 });
 

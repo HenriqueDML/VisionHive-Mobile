@@ -21,13 +21,13 @@ import { useTheme } from '../../context/ThemeContext';
 const PRIORIDADES_OPCOES = ['Baixa', 'Media', 'Alta', 'Sucata'];
 
 const getPrioridadeTexto = (prioridadeValue) => {
-    if (typeof prioridadeValue === 'number' && prioridadeValue > 0 && prioridadeValue <= PRIORIDADES_OPCOES.length) {
-      return PRIORIDADES_OPCOES[prioridadeValue - 1];
-    }
-    if (typeof prioridadeValue === 'string' && PRIORIDADES_OPCOES.includes(prioridadeValue)) {
-        return prioridadeValue;
-    }
-    return 'Desconhecida';
+  if (typeof prioridadeValue === 'number' && prioridadeValue > 0 && prioridadeValue <= PRIORIDADES_OPCOES.length) {
+    return PRIORIDADES_OPCOES[prioridadeValue - 1];
+  }
+  if (typeof prioridadeValue === 'string' && PRIORIDADES_OPCOES.includes(prioridadeValue)) {
+    return prioridadeValue;
+  }
+  return 'Desconhecida';
 };
 
 const MotoForm = ({ modalVisible, setModalVisible, motoSelecionada, salvarMoto, patios }) => {
@@ -62,33 +62,33 @@ const MotoForm = ({ modalVisible, setModalVisible, motoSelecionada, salvarMoto, 
     const motoData = { placa, chassi, numeroMotor, prioridade: prioridadeNumerica, patioId };
     salvarMoto(motoData);
   };
-  
+
   return (
     <Modal animationType="slide" transparent={true} visible={modalVisible}>
-        <View style={formStyles.centeredView}>
-            <View style={formStyles.modalView}>
-                <Text style={formStyles.modalText}>{motoSelecionada ? 'Editar Moto' : 'Nova Moto'}</Text>
-                <TextInput style={formStyles.input} placeholder="Placa" value={placa} onChangeText={setPlaca} />
-                <TextInput style={formStyles.input} placeholder="Chassi" value={chassi} onChangeText={setChassi} />
-                <TextInput style={formStyles.input} placeholder="Número do Motor" value={numeroMotor} onChangeText={setNumeroMotor} />
-                <Text style={formStyles.pickerLabel}>Prioridade</Text>
-                <View style={formStyles.pickerContainer}>
-                    <Picker selectedValue={prioridade} onValueChange={setPrioridade} style={formStyles.picker}>
-                    {PRIORIDADES_OPCOES.map(p => <Picker.Item key={p} label={p} value={p} />)}
-                    </Picker>
-                </View>
-                <Text style={formStyles.pickerLabel}>Pátio</Text>
-                <View style={formStyles.pickerContainer}>
-                    <Picker selectedValue={patioId} onValueChange={setPatioId} style={formStyles.picker}>
-                    {patios.map(p => <Picker.Item key={p.id} label={`${p.nome} (${p.filial})`} value={p.id} />)}
-                    </Picker>
-                </View>
-                <View style={formStyles.modalButtons}>
-                    <Button title="Cancelar" onPress={() => setModalVisible(false)} color="#D32F2F" />
-                    <Button title="Salvar" onPress={handleSalvar} />
-                </View>
-            </View>
+      <View style={formStyles.centeredView}>
+        <View style={formStyles.modalView}>
+          <Text style={formStyles.modalText}>{motoSelecionada ? 'Editar Moto' : 'Nova Moto'}</Text>
+          <TextInput style={formStyles.input} placeholder="Placa" value={placa} onChangeText={setPlaca} />
+          <TextInput style={formStyles.input} placeholder="Chassi" value={chassi} onChangeText={setChassi} />
+          <TextInput style={formStyles.input} placeholder="Número do Motor" value={numeroMotor} onChangeText={setNumeroMotor} />
+          <Text style={formStyles.pickerLabel}>Prioridade</Text>
+          <View style={formStyles.pickerContainer}>
+            <Picker selectedValue={prioridade} onValueChange={setPrioridade} style={formStyles.picker}>
+              {PRIORIDADES_OPCOES.map(p => <Picker.Item key={p} label={p} value={p} />)}
+            </Picker>
+          </View>
+          <Text style={formStyles.pickerLabel}>Pátio</Text>
+          <View style={formStyles.pickerContainer}>
+            <Picker selectedValue={patioId} onValueChange={setPatioId} style={formStyles.picker}>
+              {patios.map(p => <Picker.Item key={p.id} label={`${p.nome} (${p.filial})`} value={p.id} />)}
+            </Picker>
+          </View>
+          <View style={formStyles.modalButtons}>
+            <Button title="Cancelar" onPress={() => setModalVisible(false)} color="#D32F2F" />
+            <Button title="Salvar" onPress={handleSalvar} />
+          </View>
         </View>
+      </View>
     </Modal>
   );
 };
@@ -99,7 +99,7 @@ const MotoScreen = () => {
 
   const { motos, loading, error, listarMotos, adicionarMoto, atualizarMoto, removerMoto } = useMoto();
   const { patios, listarPatios } = usePatio();
-  
+
   const [modalVisible, setModalVisible] = useState(false);
   const [motoSelecionada, setMotoSelecionada] = useState(null);
 
@@ -111,7 +111,7 @@ const MotoScreen = () => {
   const handleAdicionar = () => { setMotoSelecionada(null); setModalVisible(true); };
   const handleEditar = (moto) => { setMotoSelecionada(moto); setModalVisible(true); };
   const handleDeletar = (id) => Alert.alert("Confirmar Exclusão", "Deseja remover esta moto?", [{ text: "Cancelar" }, { text: "Sim", onPress: () => removerMoto(id), style: 'destructive' }]);
-  
+
   const handleSalvarMoto = async (motoData) => {
     try {
       if (motoSelecionada) {
@@ -124,7 +124,7 @@ const MotoScreen = () => {
       Alert.alert('Erro ao salvar', 'Não foi possível salvar os dados da moto.');
     }
   };
-  
+
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
       <View>
@@ -145,34 +145,34 @@ const MotoScreen = () => {
 
   return (
     <ScreenLayout title="Gerenciar Motos">
-        <TouchableOpacity style={styles.addButton} onPress={handleAdicionar}>
-            <Text style={styles.addButtonText}>+ Adicionar Nova Moto</Text>
-        </TouchableOpacity>
-        
-        {loading ? (
-            <View style={styles.centeredContent}><ActivityIndicator size="large" color={colors.text} /></View>
-        ) : error ? (
-            <View style={styles.centeredContent}>
-                <Text style={styles.errorText}>{error}</Text>
-                <Button title="Tentar Novamente" onPress={listarMotos} color={colors.primary} />
-            </View>
-        ) : (
-            <FlatList
-                data={motos}
-                renderItem={renderItem}
-                keyExtractor={item => item.id.toString()}
-            />
-        )}
-      
-        {modalVisible && (
-            <MotoForm
-                modalVisible={modalVisible}
-                setModalVisible={setModalVisible}
-                motoSelecionada={motoSelecionada}
-                salvarMoto={handleSalvarMoto}
-                patios={patios}
-            />
-        )}
+      <TouchableOpacity style={styles.addButton} onPress={handleAdicionar}>
+        <Text style={styles.addButtonText}>+ Adicionar Nova Moto</Text>
+      </TouchableOpacity>
+
+      {loading ? (
+        <View style={styles.centeredContent}><ActivityIndicator size="large" color={colors.text} /></View>
+      ) : error ? (
+        <View style={styles.centeredContent}>
+          <Text style={styles.errorText}>{error}</Text>
+          <Button title="Tentar Novamente" onPress={listarMotos} color={colors.primary} />
+        </View>
+      ) : (
+        <FlatList
+          data={motos}
+          renderItem={renderItem}
+          keyExtractor={item => item.id.toString()}
+        />
+      )}
+
+      {modalVisible && (
+        <MotoForm
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          motoSelecionada={motoSelecionada}
+          salvarMoto={handleSalvarMoto}
+          patios={patios}
+        />
+      )}
     </ScreenLayout>
   );
 };
@@ -189,14 +189,14 @@ const getStyles = (colors) => StyleSheet.create({
 });
 
 const formStyles = StyleSheet.create({
-    centeredView: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0, 0, 0, 0.5)' },
-    modalView: { margin: 20, width: '90%', backgroundColor: "white", borderRadius: 20, padding: 35, alignItems: "center", elevation: 5 },
-    modalText: { marginBottom: 15, textAlign: "center", fontSize: 20, fontWeight: 'bold', color: '#000' },
-    input: { height: 40, borderColor: 'gray', borderWidth: 1, width: '100%', marginBottom: 15, padding: 10, borderRadius: 5, color: '#000' },
-    modalButtons: { flexDirection: 'row', justifyContent: 'space-around', width: '60%' },
-    pickerLabel: { alignSelf: 'flex-start', color: '#333', marginBottom: 5 },
-    pickerContainer: { height: 50, width: '100%', borderColor: 'gray', borderWidth: 1, borderRadius: 5, marginBottom: 15, justifyContent: 'center' },
-    picker: { height: 50, width: '100%', color: '#000' },
+  centeredView: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0, 0, 0, 0.5)' },
+  modalView: { margin: 20, width: '90%', backgroundColor: "white", borderRadius: 20, padding: 35, alignItems: "center", elevation: 5 },
+  modalText: { marginBottom: 15, textAlign: "center", fontSize: 20, fontWeight: 'bold', color: '#000' },
+  input: { height: 40, borderColor: 'gray', borderWidth: 1, width: '100%', marginBottom: 15, padding: 10, borderRadius: 5, color: '#000' },
+  modalButtons: { flexDirection: 'row', justifyContent: 'space-around', width: '60%' },
+  pickerLabel: { alignSelf: 'flex-start', color: '#333', marginBottom: 5 },
+  pickerContainer: { height: 50, width: '100%', borderColor: 'gray', borderWidth: 1, borderRadius: 5, marginBottom: 15, justifyContent: 'center' },
+  picker: { height: 50, width: '100%', color: '#000' },
 });
-  
+
 export default MotoScreen;

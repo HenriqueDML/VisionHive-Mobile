@@ -13,13 +13,13 @@ const MainMenuScreen = ({ navigation }) => {
       <View style={[styles.content, { backgroundColor: colors.background }]}>
 
         <View style={styles.themeToggleContainer}>
-            <Text style={{ color: colors.text }}>Modo Escuro</Text>
-            <Switch
-                trackColor={{ false: '#767577', true: colors.primary }}
-                thumbColor={isDarkMode ? colors.primary : '#f4f3f4'}
-                onValueChange={toggleTheme}
-                value={isDarkMode}
-            />
+          <Text style={{ color: colors.text }}>Modo Escuro</Text>
+          <Switch
+            trackColor={{ false: '#767577', true: colors.primary }}
+            thumbColor={isDarkMode ? colors.primary : '#f4f3f4'}
+            onValueChange={toggleTheme}
+            value={isDarkMode}
+          />
         </View>
 
         <Text style={[styles.title, { color: colors.text }]}>Gerenciamento</Text>
@@ -32,8 +32,11 @@ const MainMenuScreen = ({ navigation }) => {
         <View style={styles.buttonContainer}>
           <Button title="Motos" onPress={() => navigation.navigate('Motos')} color={colors.primary} />
         </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Perfil" onPress={() => navigation.navigate('Perfil')} color={colors.primary} />
+        </View>
       </View>
-      
+
       <View style={[styles.footer, { backgroundColor: colors.primary }]} />
 
     </SafeAreaView>

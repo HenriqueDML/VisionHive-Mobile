@@ -20,7 +20,7 @@ const FilialForm = ({ modalVisible, setModalVisible, filialSelecionada, salvarFi
   const [nome, setNome] = useState('');
   const [bairro, setBairro] = useState('');
   const [cnpj, setCnpj] = useState('');
-  
+
   useEffect(() => {
     if (filialSelecionada) {
       setNome(filialSelecionada.nome);
@@ -42,7 +42,7 @@ const FilialForm = ({ modalVisible, setModalVisible, filialSelecionada, salvarFi
     const filialData = { nome, bairro, cnpj };
     salvarFilial(filialData);
   };
-  
+
   return (
     <Modal animationType="slide" transparent={true} visible={modalVisible}>
       <View style={formStyles.centeredView}>
@@ -87,7 +87,7 @@ const FilialScreen = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [filialSelecionada, setFilialSelecionada] = useState(null);
-  
+
   useEffect(() => {
     listarFiliais();
   }, []);
@@ -105,7 +105,7 @@ const FilialScreen = () => {
       ]
     );
   };
-  
+
   const handleSalvarFilial = async (filialData) => {
     try {
       if (filialSelecionada) {
@@ -128,10 +128,10 @@ const FilialScreen = () => {
       </View>
       <View style={styles.itemActions}>
         <TouchableOpacity onPress={() => handleEditar(item)}>
-            <Text style={{ color: '#FFA000', fontWeight: 'bold' }}>Editar</Text>
+          <Text style={{ color: '#FFA000', fontWeight: 'bold' }}>Editar</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleDeletar(item.id)}>
-            <Text style={{ color: '#D32F2F', fontWeight: 'bold', marginTop: 8 }}>Excluir</Text>
+          <Text style={{ color: '#D32F2F', fontWeight: 'bold', marginTop: 8 }}>Excluir</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -147,8 +147,8 @@ const FilialScreen = () => {
         <View style={styles.centeredContent}><ActivityIndicator size="large" color={colors.text} /></View>
       ) : error ? (
         <View style={styles.centeredContent}>
-            <Text style={styles.errorText}>{error}</Text>
-            <Button title="Tentar Novamente" onPress={listarFiliais} color={colors.primary} />
+          <Text style={styles.errorText}>{error}</Text>
+          <Button title="Tentar Novamente" onPress={listarFiliais} color={colors.primary} />
         </View>
       ) : (
         <FlatList
@@ -157,14 +157,14 @@ const FilialScreen = () => {
           keyExtractor={item => item.id.toString()}
         />
       )}
-      
+
       {modalVisible && (
-          <FilialForm 
-            modalVisible={modalVisible} 
-            setModalVisible={setModalVisible}
-            filialSelecionada={filialSelecionada}
-            salvarFilial={handleSalvarFilial}
-          />
+        <FilialForm
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          filialSelecionada={filialSelecionada}
+          salvarFilial={handleSalvarFilial}
+        />
       )}
     </ScreenLayout>
   );
@@ -185,7 +185,7 @@ const formStyles = StyleSheet.create({
   centeredView: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0, 0, 0, 0.5)' },
   modalView: { margin: 20, width: '90%', backgroundColor: "white", borderRadius: 20, padding: 35, alignItems: "center", elevation: 5 },
   modalText: { marginBottom: 15, textAlign: "center", fontSize: 20, fontWeight: 'bold', color: '#000' },
-  input: { height: 40, borderColor: 'gray', borderWidth: 1, width: '100%', marginBottom: 15, padding: 10, borderRadius: 5, color: '#000'},
+  input: { height: 40, borderColor: 'gray', borderWidth: 1, width: '100%', marginBottom: 15, padding: 10, borderRadius: 5, color: '#000' },
   modalButtons: { flexDirection: 'row', justifyContent: 'space-around', width: '60%' },
 });
 
