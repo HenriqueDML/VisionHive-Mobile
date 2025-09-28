@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VisionHive.API</name>
+    </assembly>
+    <members>
+        <member name="M:VisionHive.API.Controllers.FilialController.Post(VisionHive.Application.DTO.Request.FilialRequest)">
+            <summary>Cria uma nova filial.</summary>
+        </member>
+        <member name="M:VisionHive.API.Controllers.FilialController.GetPaginate(VisionHive.Application.DTO.Request.FilialPaginatedRequest)">
+            <summary>Lista filiais com paginação e filtro.</summary>
+        </member>
+        <member name="M:VisionHive.API.Controllers.FilialController.GetById(System.Guid)">
+            <summary>Obtém uma filial por ID.</summary>
+        </member>
+        <member name="M:VisionHive.API.Controllers.FilialController.Put(System.Guid,VisionHive.Application.DTO.Request.FilialRequest)">
+            <summary>Atualiza uma filial existente.</summary>
+        </member>
+        <member name="M:VisionHive.API.Controllers.FilialController.Delete(System.Guid)">
+            <summary>Remove uma filial pelo ID.</summary>
+        </member>
+        <member name="T:VisionHive.API.Controllers.MotoController">
+            <summary>
+            Endpoints REST para a entidade Moto
+            </summary>
+        </member>
+        <member name="M:VisionHive.API.Controllers.MotoController.#ctor(VisionHive.Application.UseCases.IMotoUseCase)">
+            <summary>
+            Endpoints REST para a entidade Moto
+            </summary>
+        </member>
+        <member name="M:VisionHive.API.Controllers.MotoController.Post(VisionHive.Application.DTO.Request.MotoRequest)">
+            <summary>
+            cria uma nova moto
+            </summary>
+            <param name="motoRepository"></param>
+        </member>
+        <member name="M:VisionHive.API.Controllers.MotoController.GetPaginate(VisionHive.Application.DTO.Request.MotoPaginatedRequest)">
+            <summary> Lista motos com paginação e filtro </summary>
+        </member>
+        <member name="M:VisionHive.API.Controllers.MotoController.GetById(System.Guid)">
+            <summary>
+            Obtém uma moto por ID
+            </summary>
+        </member>
+        <member name="M:VisionHive.API.Controllers.MotoController.Put(System.Guid,VisionHive.Application.DTO.Request.MotoRequest)">
+            <summary>
+            Atualiza uma moto existente
+            </summary>
+        </member>
+        <member name="M:VisionHive.API.Controllers.MotoController.Delete(System.Guid)">
+            <summary>
+            Remove uma moto pelo ID
+            </summary>
+        </member>
+        <member name="M:VisionHive.API.Controllers.PatioController.Post(VisionHive.Application.DTO.Request.PatioRequest)">
+            <summary>Cria um novo pátio.</summary>
+        </member>
+        <member name="M:VisionHive.API.Controllers.PatioController.GetPaginate(VisionHive.Application.DTO.Request.PatioPaginatedRequest)">
+            <summary>Lista pátios com paginação e filtro.</summary>
+        </member>
+        <member name="M:VisionHive.API.Controllers.PatioController.GetById(System.Guid)">
+            <summary>Obtém um pátio por ID.</summary>
+        </member>
+        <member name="M:VisionHive.API.Controllers.PatioController.Put(System.Guid,VisionHive.Application.DTO.Request.PatioRequest)">
+            <summary>Atualiza um pátio existente.</summary>
+        </member>
+        <member name="M:VisionHive.API.Controllers.PatioController.Delete(System.Guid)">
+            <summary>Remove um pátio pelo ID.</summary>
+        </member>
+    </members>
+</doc>
