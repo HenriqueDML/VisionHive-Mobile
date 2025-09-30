@@ -10,6 +10,7 @@ import {
   Modal,
   TextInput,
   Button,
+  Image,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
@@ -144,45 +145,73 @@ const MotoScreen = () => {
   );
 
   return (
-    <ScreenLayout title="Gerenciar Motos">
-      <TouchableOpacity style={styles.addButton} onPress={handleAdicionar}>
-        <Text style={styles.addButtonText}>+ Adicionar Nova Moto</Text>
-      </TouchableOpacity>
-
-      {loading ? (
-        <View style={styles.centeredContent}><ActivityIndicator size="large" color={colors.text} /></View>
-      ) : error ? (
-        <View style={styles.centeredContent}>
-          <Text style={styles.errorText}>{error}</Text>
-          <Button title="Tentar Novamente" onPress={listarMotos} color={colors.primary} />
+    <ScreenLayout>
+      <View style={styles.pageContainer}>
+        <View style={styles.pageTitleContainer}>
+          <Image source={require('../../assets/icons/moto.png')} style={styles.pageTitleIcon} />
+          <Text style={styles.pageTitle}>Gerenciar Motos</Text>
         </View>
-      ) : (
-        <FlatList
-          data={motos}
-          renderItem={renderItem}
-          keyExtractor={item => item.id.toString()}
-        />
-      )}
 
-      {modalVisible && (
-        <MotoForm
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-          motoSelecionada={motoSelecionada}
-          salvarMoto={handleSalvarMoto}
-          patios={patios}
-        />
-      )}
+        <TouchableOpacity style={styles.addButton} onPress={handleAdicionar}>
+          <Text style={styles.addButtonText}>+ Adicionar Nova Moto</Text>
+        </TouchableOpacity>
+
+        {loading ? (
+          <View style={styles.centeredContent}><ActivityIndicator size="large" color={colors.text} /></View>
+        ) : error ? (
+          <View style={styles.centeredContent}>
+            <Text style={styles.errorText}>{error}</Text>
+            <Button title="Tentar Novamente" onPress={listarMotos} color={colors.primary} />
+          </View>
+        ) : (
+          <FlatList
+            data={motos}
+            renderItem={renderItem}
+            keyExtractor={item => item.id.toString()}
+            contentContainerStyle={{ paddingBottom: 20 }}
+          />
+        )}
+
+        {modalVisible && (
+          <MotoForm
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+            motoSelecionada={motoSelecionada}
+            salvarMoto={handleSalvarMoto}
+            patios={patios}
+          />
+        )}
+      </View>
     </ScreenLayout>
   );
 };
 
 const getStyles = (colors) => StyleSheet.create({
+  pageContainer: {
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+  pageTitleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 20,
+  },
+  pageTitleIcon: {
+    width: 32,
+    height: 32,
+    marginRight: 12,
+  },
+  pageTitle: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: colors.text,
+  },
   centeredContent: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   errorText: { color: colors.text, marginBottom: 10 },
-  addButton: { backgroundColor: colors.primary, padding: 15, borderRadius: 5, margin: 10, alignItems: 'center' },
+  addButton: { backgroundColor: colors.primary, padding: 15, borderRadius: 5, alignItems: 'center', marginBottom: 20 },
   addButtonText: { color: colors.buttonText, fontWeight: 'bold', fontSize: 16 },
-  itemContainer: { backgroundColor: colors.cardBackground, padding: 15, marginVertical: 8, marginHorizontal: 10, borderRadius: 5, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  itemContainer: { backgroundColor: colors.cardBackground, padding: 15, marginVertical: 8, borderRadius: 5, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   itemTitle: { color: colors.text, fontSize: 18, fontWeight: 'bold' },
   itemText: { color: colors.secondary },
   itemActions: { flexDirection: 'column' },

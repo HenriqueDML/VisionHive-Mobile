@@ -1,41 +1,37 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, StatusBar, Image } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeContext';
 
-const Header = ({ title }) => {
+const Header = () => {
+  const insets = useSafeAreaInsets();
   const { colors } = useTheme();
 
   return (
-    <SafeAreaView style={{ backgroundColor: colors.primary }}>
-      <View style={[styles.headerContainer, { backgroundColor: colors.primary }]}>
-        <Image
-            source={require('../assets/icons/logovision.jpg')} 
-            style={styles.logo}
-        />
-
-        <Text style={[styles.title, { color: colors.buttonText }]}>{title}</Text>
-      </View>
-    </SafeAreaView>
+    <View style={[styles.container, { paddingTop: insets.top, backgroundColor: colors.primary }]}>
+      <Image source={require('../assets/icons/logovision.jpg')} style={styles.logo} />
+      <Text style={styles.brandName}>Vision Hive</Text>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    height: 80,
-    width: '100%',
+  container: {
+    paddingHorizontal: 15,
+    paddingBottom: 10,
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: StatusBar.currentHeight > 30 ? 0 : StatusBar.currentHeight,
+    justifyContent: 'center',
   },
   logo: {
-      width: 40,
-      height: 40,
-      resizeMode: 'contain',
-      marginRight: 10,
+    width: 28,
+    height: 28,
+    marginRight: 10,
+    borderRadius: 5,
   },
-  title: {
-    fontSize: 22,
+  brandName: {
+    color: '#FFFFFF',
+    fontSize: 20,
     fontWeight: 'bold',
   },
 });

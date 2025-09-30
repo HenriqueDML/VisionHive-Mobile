@@ -3,8 +3,9 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert, Image } from 'react-na
 import { useAuth } from '../../hooks/auth';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../../context/ThemeContext';
+import ScreenLayout from '../../components/ScreenLayout';  
 
-const ProfileScreen = () => {
+const PerfilScreen = () => {
   const { user, logout } = useAuth();
   const navigation = useNavigation();
   const { colors } = useTheme();
@@ -20,44 +21,49 @@ const ProfileScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={require('../../assets/icons/logovision.jpg')}
-        style={styles.logo}
-      />
-      <Text style={styles.title}>Perfil</Text>
+    <ScreenLayout>
+      <View style={styles.pageContainer}>
+        <View style={styles.pageTitleContainer}>
+          <Image source={require('../../assets/icons/person.png')} style={styles.pageTitleIcon} />
+          <Text style={styles.pageTitle}>Meu Perfil</Text>
+        </View>
+        
+        <View style={styles.infoContainer}>
+          <Text style={styles.label}>Email:</Text>
+          <Text style={styles.value}>{user?.email}</Text>
+        </View>
 
-      <View style={styles.infoContainer}>
-        <Text style={styles.label}>Email:</Text>
-        <Text style={styles.value}>{user?.email}</Text>
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <Text style={styles.logoutText}>Sair</Text>
+        </TouchableOpacity>
       </View>
-
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Text style={styles.logoutText}>Sair</Text>
-      </TouchableOpacity>
-    </View>
+    </ScreenLayout>
   );
 };
 
 const getStyles = (colors) => StyleSheet.create({
-  container: {
+  pageContainer: {
     flex: 1,
-    backgroundColor: colors.background,
     justifyContent: 'center',
-    alignItems: 'center',
     padding: 20,
+    alignItems: 'center',
   },
-  logo: {
-    width: 100,
-    height: 100,
-    marginBottom: 20,
-    resizeMode: 'contain',
+  pageTitleContainer: {
+    position: 'absolute',
+    top: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  title: {
-    fontSize: 32,
+  pageTitleIcon: {
+    width: 32,
+    height: 32,
+    marginRight: 12,
+  },
+  pageTitle: {
+    fontSize: 26,
     fontWeight: 'bold',
     color: colors.text,
-    marginBottom: 30,
   },
   infoContainer: {
     width: '100%',
@@ -92,4 +98,4 @@ const getStyles = (colors) => StyleSheet.create({
   },
 });
 
-export default ProfileScreen;
+export default PerfilScreen;

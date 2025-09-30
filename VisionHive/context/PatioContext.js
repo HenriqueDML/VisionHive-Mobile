@@ -15,7 +15,7 @@ export const PatioProvider = ({ children }) => {
       const response = await api.get('/patios');
       setPatios(response.data.items);
     } catch (err) {
-      console.error('❌ ERRO AO BUSCAR PÁTIOS:', err);
+      console.error(' ERRO AO BUSCAR PÁTIOS:', err);
       setError('Não foi possível carregar os pátios.');
     } finally {
       setLoading(false);

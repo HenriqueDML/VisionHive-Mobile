@@ -29,7 +29,7 @@ const adicionarMoto = async (novaMoto) => {
       await api.post('/motos', novaMoto);
       await listarMotos();
     } catch (err) {
-      console.error('❌ ERRO ao adicionar moto!');
+      console.error(' ERRO ao adicionar moto!');
       if (err.response) {
         console.error('Dados do erro:', err.response.data);
         console.error('Status do erro:', err.response.status);

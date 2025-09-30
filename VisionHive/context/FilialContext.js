@@ -23,10 +23,10 @@ export const FilialProvider = ({ children }) => {
     setError(null);
     try {
       const response = await api.get("/filiais");
-      console.log("✅ SUCESSO! Dados recebidos da API:", response.data);
+      console.log("SUCESSO! Dados recebidos da API:", response.data);
       setFiliais(response.data.items);
     } catch (err) {
-      console.error("❌ ERRO AO BUSCAR FILIAIS:", err);
+      console.error("ERRO AO BUSCAR FILIAIS:", err);
       setError("Não foi possível carregar as filiais.");
     } finally {
       setLoading(false);
