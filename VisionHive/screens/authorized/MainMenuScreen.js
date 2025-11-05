@@ -41,6 +41,9 @@ const MainMenuScreen = ({ navigation }) => {
         <View style={styles.buttonContainer}>
           <Button title="Perfil" onPress={() => navigation.navigate('Perfil')} color={colors.primary} />
         </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Sobre o App" onPress={() => navigation.navigate('About')} color={colors.primary} />
+        </View>
       </View>
 
       <View style={[styles.footer, { backgroundColor: colors.primary }]} />

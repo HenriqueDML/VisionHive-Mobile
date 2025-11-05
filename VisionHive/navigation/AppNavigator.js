@@ -11,6 +11,7 @@ import PatioScreen from '../screens/authorized/PatioScreen';
 import MotoScreen from '../screens/authorized/MotoScreen';
 import PerfilScreen from '../screens/authorized/PerfilScreen';
 import FindMotoScreen from '../screens/authorized/FindMoto';
+import AboutScreen from '../screens/authorized/AboutScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,7 @@ const AppNavigator = () => {
           <Stack.Screen name="Moto" component={MotoScreen} />
           <Stack.Screen name="Perfil" component={PerfilScreen} />
           <Stack.Screen name="FindMoto" component={FindMotoScreen} />
+          <Stack.Screen name="About" component={AboutScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
