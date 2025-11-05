@@ -1,23 +1,56 @@
 import React from 'react';
 import { Modal, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useTheme } from '../context/ThemeContext';
 
-const CustomAlert = ({ visible, title, message, onConfirm }) => {
+const CustomAlert = ({ isVisible, title, message, buttons, onClose }) => {
+  const { colors } = useTheme();
+
   return (
     <Modal
       transparent={true}
       animationType="fade"
-      visible={visible}
-      onRequestClose={onConfirm}
+      visible={isVisible}
+      onRequestClose={onClose}
     >
-      <View style={styles.overlay}>
-        <View style={styles.alertBox}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.message}>{message}</Text>
-          <TouchableOpacity style={styles.button} onPress={onConfirm}>
-            <Text style={styles.buttonText}>OK</Text>
-          </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.overlay}
+        activeOpacity={1}
+        onPress={onClose}
+      >
+        <View style={[styles.alertBox, { backgroundColor: colors.cardBackground }]}>
+          <Text style={[styles.title, { color: colors.text }]}>{title}</Text>
+          <Text style={[styles.message, { color: colors.text }]}>{message}</Text>
+          
+          <View style={styles.buttonContainer}>
+            {buttons.map((button, index) => {
+              const isOutline = button.style === 'outline';
+              return (
+                <TouchableOpacity
+                  key={index}
+                  style={[
+                    styles.button,
+                    isOutline
+                      ? { backgroundColor: 'transparent', borderWidth: 2, borderColor: colors.primary }
+                      : { backgroundColor: colors.primary },
+                    index > 0 && { marginLeft: 10 },
+                  ]}
+                  onPress={() => {
+                    button.onPress();
+                    onClose();
+                  }}
+                >
+                  <Text style={[
+                    styles.buttonText,
+                    isOutline ? { color: colors.primary } : { color: colors.buttonText }
+                  ]}>
+                    {button.text}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </Modal>
   );
 };
@@ -25,48 +58,50 @@ const CustomAlert = ({ visible, title, message, onConfirm }) => {
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     justifyContent: 'center',
     alignItems: 'center',
   },
   alertBox: {
-    width: '80%',
-    maxWidth: 300,
-    backgroundColor: 'white',
+    width: '85%',
+    maxWidth: 350,
     borderRadius: 15,
-    padding: 20,
+    padding: 25,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 4,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 8,
   },
   title: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 10,
+    marginBottom: 15,
+    textAlign: 'center',
   },
   message: {
     fontSize: 16,
-    color: '#666',
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 25,
+    lineHeight: 22,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '100%',
+    marginTop: 10,
   },
   button: {
-    backgroundColor: '#008000',
     borderRadius: 10,
     paddingVertical: 12,
-    paddingHorizontal: 30,
-    alignSelf: 'stretch',
+    flex: 1,
     alignItems: 'center',
   },
   buttonText: {
-    color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
   },

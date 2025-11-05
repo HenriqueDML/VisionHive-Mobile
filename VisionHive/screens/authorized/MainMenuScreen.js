@@ -32,6 +32,13 @@ const MainMenuScreen = ({ navigation }) => {
           <Button title="Motos" onPress={() => navigation.navigate('Moto')} color={colors.primary} />
         </View>
         <View style={styles.buttonContainer}>
+          <Button
+            title="Encontrar Moto"
+            onPress={() => navigation.navigate('FindMoto')}
+            color={colors.accent || colors.primary}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
           <Button title="Perfil" onPress={() => navigation.navigate('Perfil')} color={colors.primary} />
         </View>
       </View>
