@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, SafeAreaView, Switch } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Switch } from 'react-native';
 import Header from '../../components/Header';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -22,41 +22,88 @@ const MainMenuScreen = ({ navigation }) => {
         </View>
 
         <Text style={[styles.title, { color: colors.text }]}>Gerenciamento</Text>
-        <View style={styles.buttonContainer}>
-          <Button title="Filiais" onPress={() => navigation.navigate('Filial')} color={colors.primary} />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button title="Pátios" onPress={() => navigation.navigate('Patio')} color={colors.primary} />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button title="Motos" onPress={() => navigation.navigate('Moto')} color={colors.primary} />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Encontrar Moto"
-            onPress={() => navigation.navigate('FindMoto')}
-            color={colors.accent || colors.primary}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button title="Perfil" onPress={() => navigation.navigate('Perfil')} color={colors.primary} />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button title="Sobre o App" onPress={() => navigation.navigate('About')} color={colors.primary} />
+
+        <View style={styles.gridContainer}>
+          <View style={styles.row}>
+            <TouchableOpacity style={[styles.button, { backgroundColor: colors.primary }]} onPress={() => navigation.navigate('Filial')}>
+              <Text style={styles.buttonText}>FILIAIS</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.button, { backgroundColor: colors.primary }]} onPress={() => navigation.navigate('Patio')}>
+              <Text style={styles.buttonText}>PÁTIOS</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.row}>
+            <TouchableOpacity style={[styles.button, { backgroundColor: colors.primary }]} onPress={() => navigation.navigate('Moto')}>
+              <Text style={styles.buttonText}>MOTOS</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.button, { backgroundColor: colors.accent || colors.primary }]} onPress={() => navigation.navigate('FindMoto')}>
+              <Text style={styles.buttonText}>ENCONTRAR MOTO</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.row}>
+            <TouchableOpacity style={[styles.button, { backgroundColor: colors.primary }]} onPress={() => navigation.navigate('Perfil')}>
+              <Text style={styles.buttonText}>PERFIL</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.button, { backgroundColor: colors.primary }]} onPress={() => navigation.navigate('About')}>
+              <Text style={styles.buttonText}>SOBRE O APP</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-
       <View style={[styles.footer, { backgroundColor: colors.primary }]} />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  content: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
-  title: { fontSize: 28, fontWeight: 'bold', marginBottom: 40 },
-  buttonContainer: { width: '80%', marginVertical: 10 },
-  themeToggleContainer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '80%', position: 'absolute', top: 20 },
-  footer: { height: 80, width: '100%' },
+  content: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+  },
+  themeToggleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    position: 'absolute',
+    top: 20,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 40,
+    marginTop: 60,
+  },
+  gridContainer: {
+    width: '100%',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  button: {
+    width: '48%',
+    aspectRatio: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    padding: 10,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  footer: {
+    height: 80,
+    width: '100%',
+  },
 });
 
 export default MainMenuScreen;

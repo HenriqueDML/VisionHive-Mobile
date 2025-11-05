@@ -32,8 +32,13 @@ const Footer = () => {
       target: 'Moto',
     },
     {
+      label: 'Encontrar',
+      icon: require('../assets/icons/lupa.png'),
+      target: 'FindMoto',
+    },
+    {
       label: 'Perfil',
-      icon: require('../assets/icons/person.png'), 
+      icon: require('../assets/icons/person.png'),
       target: 'Perfil',
     },
   ];
