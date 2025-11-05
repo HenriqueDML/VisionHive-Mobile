@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../hooks/auth";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView, Text, View, StyleSheet, TouchableOpacity, ActivityIndicator, Image, Alert } from "react-native";
@@ -7,40 +7,40 @@ import LockUnlocked from "../../assets/lock-unlocked-04.svg";
 import { useNavigation } from "@react-navigation/native";
 import { Input } from "../../components/Inputs/Input";
 import { Button } from "../../components/Buttons/Button";
+import { useTranslation } from "react-i18next";
 
 export default function RegisterScreen() {
   const navigation = useNavigation();
   const { register } = useAuth();
+  const { t } = useTranslation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
   const [loading, setLoading] = useState(false);
 
   const validateEmail = (text) => {
     setEmail(text);
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    setEmailError(!regex.test(text) ? "Email inválido, formato: email@email.com" : "");
+    setEmailError(!regex.test(text) ? t('login:emailInvalid') : "");
   };
 
   const validatePassword = (text) => {
     setPassword(text);
-    setPasswordError(text.length < 6 ? "Senha deve ter pelo menos 6 caracteres" : "");
+    setPasswordError(text.length < 6 ? t('login:passwordLength') : "");
   };
 
   const handleRegister = async () => {
     let valid = true;
 
     if (!email) {
-      setEmailError("Preencha o email");
+      setEmailError(t('login:fillEmail'));
       valid = false;
     } else if (emailError) valid = false;
 
     if (!password) {
-      setPasswordError("Preencha a senha");
+      setPasswordError(t('login:fillPassword'));
       valid = false;
     } else if (passwordError) valid = false;
 
@@ -50,11 +50,11 @@ export default function RegisterScreen() {
     try {
       await register({ email, password });
 
-      Alert.alert("Sucesso", "Usuário registrado com sucesso!");
+      Alert.alert(t('common:success'), t('register:alertSuccessMessage'));
       navigation.replace("Login");
     } catch (error) {
-      if (error?.code === "auth/email-already-in-use") setEmailError("Email já cadastrado");
-      else Alert.alert("Erro", error.message || "Ocorreu um erro");
+      if (error?.code === "auth/email-already-in-use") setEmailError(t('register:alertEmailInUse'));
+      else Alert.alert(t('register:alertErrorTitle'), error.message || "Ocorreu um erro");
     } finally {
       setLoading(false);
     }
@@ -68,12 +68,12 @@ export default function RegisterScreen() {
           style={styles.logo}
         />
         <Text style={styles.title}>Vision Hive</Text>
-        <Text style={styles.subtitle}>Crie sua conta</Text>
+        <Text style={styles.subtitle}>{t('register:subtitle')}</Text>
 
         <Input
-          title="Email"
+          title={t('login:emailLabel')}
           icon={MailIcon}
-          placeholder="Digite seu email"
+          placeholder={t('login:emailPlaceholder')}
           value={email}
           onChangeText={validateEmail}
           keyboardType="email-address"
@@ -84,9 +84,9 @@ export default function RegisterScreen() {
         {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
 
         <Input
-          title="Senha"
+          title={t('login:passwordLabel')}
           icon={LockUnlocked}
-          placeholder="Digite sua senha"
+          placeholder={t('login:passwordPlaceholder')}
           value={password}
           onChangeText={validatePassword}
           secureTextEntry
@@ -95,14 +95,14 @@ export default function RegisterScreen() {
         />
         {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
 
-        <Button label={loading ? "" : "Cadastrar"} onPress={handleRegister} style={styles.button}>
+        <Button label={loading ? "" : t('register:button')} onPress={handleRegister} style={styles.button}>
           {loading && <ActivityIndicator color="#fff" />}
         </Button>
 
         <View style={styles.loginRedirect}>
-          <Text style={styles.noAccountText}>Já possui uma conta?</Text>
+          <Text style={styles.noAccountText}>{t('register:hasAccount')}</Text>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text style={styles.registerText}>Entre</Text>
+            <Text style={styles.registerText}>{t('register:login')}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

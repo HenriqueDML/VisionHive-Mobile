@@ -1,0 +1,46 @@
+{
+  "login": {
+    "subtitle": "Acesse sua conta",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Digite seu email",
+    "passwordLabel": "Senha",
+    "passwordPlaceholder": "Digite sua senha",
+    "button": "Entrar",
+    "noAccount": "Não possui uma conta?",
+    "register": "Cadastre-se",
+    "emailInvalid": "Email inválido, formato: email@email.com",
+    "passwordLength": "Senha deve ter pelo menos 6 caracteres",
+    "fillEmail": "Preencha o email",
+    "fillPassword": "Preencha a senha",
+    "alertSuccessTitle": "Sucesso",
+    "alertSuccessMessage": "Login realizado com sucesso!",
+    "alertErrorTitle": "Erro no Login",
+    "alertGenericError": "Algo deu errado, tente novamente.",
+    "alertInvalidCredentials": "Email ou senha inválidos.",
+    "alertWrongPassword": "Senha incorreta."
+  },
+  "register": {
+    "subtitle": "Crie sua conta",
+    "button": "Cadastrar",
+    "hasAccount": "Já possui uma conta?",
+    "login": "Entre",
+    "alertSuccessMessage": "Usuário registrado com sucesso!",
+    "alertEmailInUse": "Email já cadastrado",
+    "alertErrorTitle": "Erro"
+  },
+  "mainMenu": {
+    "header": "Vision Hive",
+    "darkMode": "Modo Escuro",
+    "title": "Gerenciamento",
+    "branches": "FILIAIS",
+    "yards": "PÁTIOS",
+    "motorcycles": "MOTOS",
+    "findMotorcycle": "ENCONTRAR MOTO",
+    "profile": "PERFIL",
+    "about": "SOBRE O APP"
+  },
+  "common": {
+    "ok": "OK",
+    "success": "Sucesso"
+  }
+}

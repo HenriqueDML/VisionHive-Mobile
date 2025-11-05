@@ -1,0 +1,46 @@
+{
+  "login": {
+    "subtitle": "Accede a tu cuenta",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "Ingresa tu correo electrónico",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Ingresa tu contraseña",
+    "button": "Entrar",
+    "noAccount": "¿No tienes una cuenta?",
+    "register": "Regístrate",
+    "emailInvalid": "Correo electrónico inválido, formato: email@email.com",
+    "passwordLength": "La contraseña debe tener al menos 6 caracteres",
+    "fillEmail": "Completa el correo electrónico",
+    "fillPassword": "Completa la contraseña",
+    "alertSuccessTitle": "Éxito",
+    "alertSuccessMessage": "¡Inicio de sesión exitoso!",
+    "alertErrorTitle": "Error de inicio de sesión",
+    "alertGenericError": "Algo salió mal, inténtalo de nuevo.",
+    "alertInvalidCredentials": "Correo electrónico o contraseña no válidos.",
+    "alertWrongPassword": "Contraseña incorrecta."
+  },
+  "register": {
+    "subtitle": "Crea tu cuenta",
+    "button": "Registrar",
+    "hasAccount": "¿Ya tienes una cuenta?",
+    "login": "Ingresa",
+    "alertSuccessMessage": "¡Usuario registrado con éxito!",
+    "alertEmailInUse": "Correo electrónico ya registrado",
+    "alertErrorTitle": "Error"
+  },
+  "mainMenu": {
+    "header": "Vision Hive",
+    "darkMode": "Modo Oscuro",
+    "title": "Gestión",
+    "branches": "SUCURSALES",
+    "yards": "PATIOS",
+    "motorcycles": "MOTOS",
+    "findMotorcycle": "ENCONTRAR MOTO",
+    "profile": "PERFIL",
+    "about": "SOBRE LA APP"
+  },
+  "common": {
+    "ok": "OK",
+    "success": "Éxito"
+  }
+}

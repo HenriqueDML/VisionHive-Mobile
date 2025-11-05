@@ -8,12 +8,14 @@ import LockUnlocked from '../../assets/lock-unlocked-04.svg';
 import { Input } from '../../components/Inputs/Input';
 import { Button } from '../../components/Buttons/Button';
 import CustomAlert from '../../components/CustomAlert';
+import { useTranslation } from 'react-i18next';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
   const styles = getStyles(colors);
   const { login } = useAuth();
+  const { t } = useTranslation();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,17 +28,17 @@ const LoginScreen = () => {
   const validateEmail = (text) => {
     setEmail(text);
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    setEmailError(!regex.test(text) ? 'Email inválido, formato: email@email.com' : '');
+    setEmailError(!regex.test(text) ? t('login:emailInvalid') : '');
   };
 
   const validatePassword = (text) => {
     setPassword(text);
-    setPasswordError(text.length < 6 ? 'Senha deve ter pelo menos 6 caracteres' : '');
+    setPasswordError(text.length < 6 ? t('login:passwordLength') : '');
   };
   
   const closeAlert = () => {
     setAlertVisible(false);
-    if (alertInfo.title === 'Sucesso') {
+    if (alertInfo.title === t('login:alertSuccessTitle')) {
       navigation.replace('MainMenu');
     }
   };
@@ -44,11 +46,11 @@ const LoginScreen = () => {
   const handleLogin = async () => {
     let valid = true;
     if (!email) {
-      setEmailError('Preencha o email');
+      setEmailError(t('login:fillEmail'));
       valid = false;
     } else if (emailError) valid = false;
     if (!password) {
-      setPasswordError('Preencha a senha');
+      setPasswordError(t('login:fillPassword'));
       valid = false;
     } else if (passwordError) valid = false;
     if (!valid) return;
@@ -56,16 +58,16 @@ const LoginScreen = () => {
     setLoading(true);
     try {
       await login({ email, password });
-      setAlertInfo({ title: 'Sucesso', message: 'Login realizado com sucesso!' });
+      setAlertInfo({ title: t('login:alertSuccessTitle'), message: t('login:alertSuccessMessage') });
       setAlertVisible(true);
     } catch (error) {
-      let errorMessage = 'Algo deu errado, tente novamente.';
+      let errorMessage = t('login:alertGenericError');
       if (error?.code === 'auth/user-not-found' || error?.code === 'auth/invalid-credential') {
-        errorMessage = 'Email ou senha inválidos.';
+        errorMessage = t('login:alertInvalidCredentials');
       } else if (error?.code === 'auth/wrong-password') {
-        errorMessage = 'Senha incorreta.';
+        errorMessage = t('login:alertWrongPassword');
       }
-      setAlertInfo({ title: 'Erro no Login', message: errorMessage });
+      setAlertInfo({ title: t('login:alertErrorTitle'), message: errorMessage });
       setAlertVisible(true);
     } finally {
       setLoading(false);
@@ -77,11 +79,11 @@ const LoginScreen = () => {
       <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', padding: 20 }} keyboardShouldPersistTaps="handled">
         <Image source={require('../../assets/icons/logovision.jpg')} style={styles.logo} />
         <Text style={styles.title}>Vision Hive</Text>
-        <Text style={styles.subtitle}>Acesse sua conta</Text>
+        <Text style={styles.subtitle}>{t('login:subtitle')}</Text>
         <Input
-          title="Email"
+          title={t('login:emailLabel')}
           icon={MailIcon}
-          placeholder="Digite seu email"
+          placeholder={t('login:emailPlaceholder')}
           value={email}
           onChangeText={validateEmail}
           keyboardType="email-address"
@@ -91,9 +93,9 @@ const LoginScreen = () => {
         />
         {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
         <Input
-          title="Senha"
+          title={t('login:passwordLabel')}
           icon={LockUnlocked}
-          placeholder="Digite sua senha"
+          placeholder={t('login:passwordPlaceholder')}
           value={password}
           onChangeText={validatePassword}
           secureTextEntry
@@ -101,13 +103,13 @@ const LoginScreen = () => {
           titleStyle={{ color: '#000' }}
         />
         {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
-        <Button label={loading ? '' : 'Entrar'} onPress={handleLogin} style={styles.button}>
+        <Button label={loading ? '' : t('login:button')} onPress={handleLogin} style={styles.button}>
           {loading && <ActivityIndicator color="#fff" />}
         </Button>
         <View style={styles.registerRedirect}>
-          <Text style={styles.noAccountText}>Não possui uma conta?</Text>
+          <Text style={styles.noAccountText}>{t('login:noAccount')}</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.registerText}>Cadastre-se</Text>
+            <Text style={styles.registerText}>{t('login:register')}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -117,7 +119,7 @@ const LoginScreen = () => {
         title={alertInfo.title}
         message={alertInfo.message}
         onClose={closeAlert}
-        buttons={[{ text: 'OK', onPress: closeAlert }]}
+        buttons={[{ text: t('common:ok'), onPress: closeAlert }]}
       />
     </>
   );
