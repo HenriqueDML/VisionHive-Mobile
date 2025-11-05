@@ -21,6 +21,7 @@ const LoginScreen = () => {
   const [passwordError, setPasswordError] = useState('');
   const [loading, setLoading] = useState(false);
   const [isAlertVisible, setAlertVisible] = useState(false);
+  const [alertInfo, setAlertInfo] = useState({ title: '', message: '' });
 
   const validateEmail = (text) => {
     setEmail(text);
@@ -33,9 +34,11 @@ const LoginScreen = () => {
     setPasswordError(text.length < 6 ? 'Senha deve ter pelo menos 6 caracteres' : '');
   };
   
-  const handleLoginSuccess = () => {
+  const closeAlert = () => {
     setAlertVisible(false);
-    navigation.replace('MainMenu');
+    if (alertInfo.title === 'Sucesso') {
+      navigation.replace('MainMenu');
+    }
   };
 
   const handleLogin = async () => {
@@ -53,13 +56,17 @@ const LoginScreen = () => {
     setLoading(true);
     try {
       await login({ email, password });
+      setAlertInfo({ title: 'Sucesso', message: 'Login realizado com sucesso!' });
       setAlertVisible(true);
     } catch (error) {
-      if (error?.code === 'auth/user-not-found') setEmailError('Usuário não encontrado');
-      else if (error?.code === 'auth/wrong-password') setPasswordError('Senha incorreta');
-      else {
-        alert(error.message || 'Algo deu errado');
+      let errorMessage = 'Algo deu errado, tente novamente.';
+      if (error?.code === 'auth/user-not-found' || error?.code === 'auth/invalid-credential') {
+        errorMessage = 'Email ou senha inválidos.';
+      } else if (error?.code === 'auth/wrong-password') {
+        errorMessage = 'Senha incorreta.';
       }
+      setAlertInfo({ title: 'Erro no Login', message: errorMessage });
+      setAlertVisible(true);
     } finally {
       setLoading(false);
     }
@@ -105,11 +112,12 @@ const LoginScreen = () => {
         </View>
       </ScrollView>
 
-      <CustomAlert 
-        visible={isAlertVisible}
-        title="Sucesso"
-        message="Login realizado com sucesso!"
-        onConfirm={handleLoginSuccess}
+      <CustomAlert
+        isVisible={isAlertVisible}
+        title={alertInfo.title}
+        message={alertInfo.message}
+        onClose={closeAlert}
+        buttons={[{ text: 'OK', onPress: closeAlert }]}
       />
     </>
   );

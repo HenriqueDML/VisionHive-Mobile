@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTheme } from '../context/ThemeContext';
 
-const CustomAlert = ({ isVisible, title, message, buttons, onClose }) => {
+const CustomAlert = ({ isVisible, title, message, buttons = [], onClose }) => {
   const { colors } = useTheme();
 
   return (
