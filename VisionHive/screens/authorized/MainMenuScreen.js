@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Switch } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Switch, Image } from 'react-native';
 import Header from '../../components/Header';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -26,27 +26,33 @@ const MainMenuScreen = ({ navigation }) => {
         <View style={styles.gridContainer}>
           <View style={styles.row}>
             <TouchableOpacity style={[styles.button, { backgroundColor: colors.primary }]} onPress={() => navigation.navigate('Filial')}>
+              <Image source={require('../../assets/icons/filial.png')} style={styles.icon} />
               <Text style={styles.buttonText}>FILIAIS</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.button, { backgroundColor: colors.primary }]} onPress={() => navigation.navigate('Patio')}>
+              <Image source={require('../../assets/icons/patio.png')} style={styles.icon} />
               <Text style={styles.buttonText}>PÁTIOS</Text>
             </TouchableOpacity>
           </View>
 
           <View style={styles.row}>
             <TouchableOpacity style={[styles.button, { backgroundColor: colors.primary }]} onPress={() => navigation.navigate('Moto')}>
+              <Image source={require('../../assets/icons/moto.png')} style={styles.icon} />
               <Text style={styles.buttonText}>MOTOS</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.button, { backgroundColor: colors.accent || colors.primary }]} onPress={() => navigation.navigate('FindMoto')}>
+              <Image source={require('../../assets/icons/lupa.png')} style={styles.icon} />
               <Text style={styles.buttonText}>ENCONTRAR MOTO</Text>
             </TouchableOpacity>
           </View>
 
           <View style={styles.row}>
             <TouchableOpacity style={[styles.button, { backgroundColor: colors.primary }]} onPress={() => navigation.navigate('Perfil')}>
+              <Image source={require('../../assets/icons/person.png')} style={styles.icon} />
               <Text style={styles.buttonText}>PERFIL</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.button, { backgroundColor: colors.primary }]} onPress={() => navigation.navigate('About')}>
+              <Image source={require('../../assets/icons/sobre.png')} style={styles.icon} />
               <Text style={styles.buttonText}>SOBRE O APP</Text>
             </TouchableOpacity>
           </View>
@@ -94,10 +100,16 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
   },
+  icon: {
+    width: 40,
+    height: 40,
+    marginBottom: 15,
+    tintColor: '#FFFFFF',
+  },
   buttonText: {
     color: '#FFFFFF',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 14,
     textAlign: 'center',
   },
   footer: {
