@@ -24,7 +24,7 @@
       },
       "edgeToEdgeEnabled": true
     },
-        "plugins": [
+    "plugins": [
       "expo-font",
       [
         "expo-build-properties",
@@ -33,7 +33,8 @@
             "useFrameworks": "static"
           }
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "web": {
       "favicon": "./assets/favicon.png"
