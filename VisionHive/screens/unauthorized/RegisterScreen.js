@@ -7,12 +7,12 @@ import LockUnlocked from "../../assets/lock-unlocked-04.svg";
 import { useNavigation } from "@react-navigation/native";
 import { Input } from "../../components/Inputs/Input";
 import { Button } from "../../components/Buttons/Button";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next"; // i18n - Importação do hook de tradução
 
 export default function RegisterScreen() {
   const navigation = useNavigation();
   const { register } = useAuth();
-  const { t } = useTranslation();
+  // const { t } = useTranslation(); // i18n - Inicialização do hook de tradução
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,24 +23,28 @@ export default function RegisterScreen() {
   const validateEmail = (text) => {
     setEmail(text);
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    setEmailError(!regex.test(text) ? t('login:emailInvalid') : "");
+    // setEmailError(!regex.test(text) ? t('login:emailInvalid') : ""); // i18n - Validação com texto traduzido
+    setEmailError(!regex.test(text) ? "O e-mail fornecido não é válido" : "");
   };
 
   const validatePassword = (text) => {
     setPassword(text);
-    setPasswordError(text.length < 6 ? t('login:passwordLength') : "");
+    // setPasswordError(text.length < 6 ? t('login:passwordLength') : ""); // i18n - Validação com texto traduzido
+    setPasswordError(text.length < 6 ? "A senha deve ter no mínimo 6 caracteres" : "");
   };
 
   const handleRegister = async () => {
     let valid = true;
 
     if (!email) {
-      setEmailError(t('login:fillEmail'));
+      // setEmailError(t('login:fillEmail')); // i18n - Mensagem de erro traduzida
+      setEmailError("Por favor, preencha o campo de e-mail");
       valid = false;
     } else if (emailError) valid = false;
 
     if (!password) {
-      setPasswordError(t('login:fillPassword'));
+      // setPasswordError(t('login:fillPassword')); // i18n - Mensagem de erro traduzida
+      setPasswordError("Por favor, preencha o campo de senha");
       valid = false;
     } else if (passwordError) valid = false;
 
@@ -50,11 +54,17 @@ export default function RegisterScreen() {
     try {
       await register({ email, password });
 
-      Alert.alert(t('common:success'), t('register:alertSuccessMessage'));
+      // Alert.alert(t('common:success'), t('register:alertSuccessMessage')); // i18n - Alerta com texto traduzido
+      Alert.alert("Sucesso!", "Sua conta foi criada com sucesso. Agora você pode fazer o login.");
       navigation.replace("Login");
     } catch (error) {
-      if (error?.code === "auth/email-already-in-use") setEmailError(t('register:alertEmailInUse'));
-      else Alert.alert(t('register:alertErrorTitle'), error.message || "Ocorreu um erro");
+      // if (error?.code === "auth/email-already-in-use") setEmailError(t('register:alertEmailInUse')); // i18n - Mensagem de erro traduzida
+      if (error?.code === "auth/email-already-in-use") {
+        setEmailError("Este endereço de e-mail já está em uso.");
+      } else {
+        // else Alert.alert(t('register:alertErrorTitle'), error.message || "Ocorreu um erro"); // i18n - Alerta com texto traduzido
+        Alert.alert("Erro ao cadastrar", "Não foi possível criar sua conta. Por favor, tente novamente.");
+      }
     } finally {
       setLoading(false);
     }
@@ -68,12 +78,15 @@ export default function RegisterScreen() {
           style={styles.logo}
         />
         <Text style={styles.title}>Vision Hive</Text>
-        <Text style={styles.subtitle}>{t('register:subtitle')}</Text>
+        {/* <Text style={styles.subtitle}>{t('register:subtitle')}</Text> i18n - Subtítulo traduzido */}
+        <Text style={styles.subtitle}>Crie sua conta para começar</Text>
 
         <Input
-          title={t('login:emailLabel')}
+          // title={t('login:emailLabel')} // i18n - Título do campo traduzido
+          title="E-mail"
           icon={MailIcon}
-          placeholder={t('login:emailPlaceholder')}
+          // placeholder={t('login:emailPlaceholder')} // i18n - Placeholder do campo traduzido
+          placeholder="Digite seu e-mail"
           value={email}
           onChangeText={validateEmail}
           keyboardType="email-address"
@@ -84,9 +97,11 @@ export default function RegisterScreen() {
         {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
 
         <Input
-          title={t('login:passwordLabel')}
+          // title={t('login:passwordLabel')} // i18n - Título do campo traduzido
+          title="Senha"
           icon={LockUnlocked}
-          placeholder={t('login:passwordPlaceholder')}
+          // placeholder={t('login:passwordPlaceholder')} // i18n - Placeholder do campo traduzido
+          placeholder="Crie uma senha"
           value={password}
           onChangeText={validatePassword}
           secureTextEntry
@@ -95,14 +110,17 @@ export default function RegisterScreen() {
         />
         {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
 
-        <Button label={loading ? "" : t('register:button')} onPress={handleRegister} style={styles.button}>
+        {/* <Button label={loading ? "" : t('register:button')} onPress={handleRegister} style={styles.button}> // i18n - Rótulo do botão traduzido */}
+        <Button label={loading ? "" : "Cadastrar"} onPress={handleRegister} style={styles.button}>
           {loading && <ActivityIndicator color="#fff" />}
         </Button>
 
         <View style={styles.loginRedirect}>
-          <Text style={styles.noAccountText}>{t('register:hasAccount')}</Text>
+          {/* <Text style={styles.noAccountText}>{t('register:hasAccount')}</Text> // i18n - Texto traduzido */}
+          <Text style={styles.noAccountText}>Já possui uma conta?</Text>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text style={styles.registerText}>{t('register:login')}</Text>
+            {/* <Text style={styles.registerText}>{t('register:login')}</Text> // i18n - Texto traduzido */}
+            <Text style={styles.registerText}>Faça login</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

@@ -1,4 +1,4 @@
-import './services/i18n';
+// import './services/i18n';
 import React from 'react';
 // import { useEffect } from 'react';
 // import { Alert } from 'react-native';

@@ -8,14 +8,14 @@ import LockUnlocked from '../../assets/lock-unlocked-04.svg';
 import { Input } from '../../components/Inputs/Input';
 import { Button } from '../../components/Buttons/Button';
 import CustomAlert from '../../components/CustomAlert';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next'; // i18n - Importação do hook de tradução
 
 const LoginScreen = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
   const styles = getStyles(colors);
   const { login } = useAuth();
-  const { t } = useTranslation();
+  // const { t } = useTranslation(); // i18n - Inicialização do hook de tradução
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,17 +28,19 @@ const LoginScreen = () => {
   const validateEmail = (text) => {
     setEmail(text);
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    setEmailError(!regex.test(text) ? t('login:emailInvalid') : '');
+    //setEmailError(!regex.test(text) ? t('login:emailInvalid') : ''); // i18n - Validação com texto traduzido
+    setEmailError(!regex.test(text) ? 'O e-mail não é válido' : '');
   };
 
   const validatePassword = (text) => {
     setPassword(text);
-    setPasswordError(text.length < 6 ? t('login:passwordLength') : '');
+    //setPasswordError(text.length < 6 ? t('login:passwordLength') : ''); // i18n - Validação com texto traduzido
+    setPasswordError(text.length < 6 ? 'A senha deve ter pelo menos 6 caracteres' : '');
   };
   
   const closeAlert = () => {
     setAlertVisible(false);
-    if (alertInfo.title === t('login:alertSuccessTitle')) {
+    if (alertInfo.title === 'Sucesso!') {
       navigation.replace('MainMenu');
     }
   };
@@ -46,11 +48,13 @@ const LoginScreen = () => {
   const handleLogin = async () => {
     let valid = true;
     if (!email) {
-      setEmailError(t('login:fillEmail'));
+      // setEmailError(t('login:fillEmail')); // i18n - Mensagem de erro traduzida
+      setEmailError('Por favor, insira seu e-mail');
       valid = false;
     } else if (emailError) valid = false;
     if (!password) {
-      setPasswordError(t('login:fillPassword'));
+      // setPasswordError(t('login:fillPassword')); // i18n - Mensagem de erro traduzida
+      setPasswordError('Por favor, insira sua senha');
       valid = false;
     } else if (passwordError) valid = false;
     if (!valid) return;
@@ -58,16 +62,21 @@ const LoginScreen = () => {
     setLoading(true);
     try {
       await login({ email, password });
-      setAlertInfo({ title: t('login:alertSuccessTitle'), message: t('login:alertSuccessMessage') });
+      // setAlertInfo({ title: t('login:alertSuccessTitle'), message: t('login:alertSuccessMessage') }); // i18n - Alerta com texto traduzido
+      setAlertInfo({ title: 'Sucesso!', message: 'Você fez login com sucesso.' });
       setAlertVisible(true);
     } catch (error) {
-      let errorMessage = t('login:alertGenericError');
+      // let errorMessage = t('login:alertGenericError'); // i18n - Mensagem de erro traduzida
+      let errorMessage = 'Ocorreu um erro. Por favor, tente novamente.';
       if (error?.code === 'auth/user-not-found' || error?.code === 'auth/invalid-credential') {
-        errorMessage = t('login:alertInvalidCredentials');
+        // errorMessage = t('login:alertInvalidCredentials'); // i18n - Mensagem de erro traduzida
+        errorMessage = 'Credenciais inválidas. Por favor, verifique seu e-mail e senha.';
       } else if (error?.code === 'auth/wrong-password') {
-        errorMessage = t('login:alertWrongPassword');
+        // errorMessage = t('login:alertWrongPassword'); // i18n - Mensagem de erro traduzida
+        errorMessage = 'Senha incorreta. Por favor, tente novamente.';
       }
-      setAlertInfo({ title: t('login:alertErrorTitle'), message: errorMessage });
+      // setAlertInfo({ title: t('login:alertErrorTitle'), message: errorMessage }); // i18n - Alerta com texto traduzido
+      setAlertInfo({ title: 'Erro', message: errorMessage });
       setAlertVisible(true);
     } finally {
       setLoading(false);
@@ -79,11 +88,14 @@ const LoginScreen = () => {
       <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', padding: 20 }} keyboardShouldPersistTaps="handled">
         <Image source={require('../../assets/icons/logovision.jpg')} style={styles.logo} />
         <Text style={styles.title}>Vision Hive</Text>
-        <Text style={styles.subtitle}>{t('login:subtitle')}</Text>
+        {/* <Text style={styles.subtitle}>{t('login:subtitle')}</Text> // i18n - Subtítulo traduzido */}
+        <Text style={styles.subtitle}>Faça login para continuar</Text>
         <Input
-          title={t('login:emailLabel')}
+          // title={t('login:emailLabel')} // i18n - Título do campo traduzido
+          title="E-mail"
           icon={MailIcon}
-          placeholder={t('login:emailPlaceholder')}
+          // placeholder={t('login:emailPlaceholder')} // i18n - Placeholder do campo traduzido
+          placeholder="Seu e-mail"
           value={email}
           onChangeText={validateEmail}
           keyboardType="email-address"
@@ -93,9 +105,11 @@ const LoginScreen = () => {
         />
         {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
         <Input
-          title={t('login:passwordLabel')}
+          // title={t('login:passwordLabel')} // i18n - Título do campo traduzido
+          title="Senha"
           icon={LockUnlocked}
-          placeholder={t('login:passwordPlaceholder')}
+          // placeholder={t('login:passwordPlaceholder')} // i18n - Placeholder do campo traduzido
+          placeholder="Sua senha"
           value={password}
           onChangeText={validatePassword}
           secureTextEntry
@@ -103,13 +117,16 @@ const LoginScreen = () => {
           titleStyle={{ color: '#000' }}
         />
         {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
-        <Button label={loading ? '' : t('login:button')} onPress={handleLogin} style={styles.button}>
+        {/* <Button label={loading ? '' : t('login:button')} onPress={handleLogin} style={styles.button}> // i18n - Rótulo do botão traduzido */}
+        <Button label={loading ? '' : 'Entrar'} onPress={handleLogin} style={styles.button}>
           {loading && <ActivityIndicator color="#fff" />}
         </Button>
         <View style={styles.registerRedirect}>
-          <Text style={styles.noAccountText}>{t('login:noAccount')}</Text>
+          {/* <Text style={styles.noAccountText}>{t('login:noAccount')}</Text> // i18n - Texto traduzido */}
+          <Text style={styles.noAccountText}>Não tem uma conta?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.registerText}>{t('login:register')}</Text>
+            {/* <Text style={styles.registerText}>{t('login:register')}</Text> // i18n - Texto traduzido */}
+            <Text style={styles.registerText}>Cadastre-se</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -119,7 +136,8 @@ const LoginScreen = () => {
         title={alertInfo.title}
         message={alertInfo.message}
         onClose={closeAlert}
-        buttons={[{ text: t('common:ok'), onPress: closeAlert }]}
+        // buttons={[{ text: t('common:ok'), onPress: closeAlert }]} // i18n - Texto do botão traduzido
+        buttons={[{ text: 'OK', onPress: closeAlert }]}
       />
     </>
   );
