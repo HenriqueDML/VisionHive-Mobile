@@ -1,7 +1,7 @@
 # VisionHive - Sistema de Gerenciamento de Pátio
 
 ## 📌 Video do Projeto
-Link > https://www.youtube.com/watch?v=oKJMBvGMbCE&feature=youtu.be
+Link > https://youtu.be/3n4hlB2W4YU
 
 ## 📌 Descrição do Projeto
 
@@ -95,6 +95,7 @@ O _VisionHive_ propõe um sistema mobile completo que permite:
 - **Tela Pátio**: Possibilita o cadastro e edição e exclusão de um pátio, apresenta a lista dos pátios já cadastrados.
 - **Tela Moto**: Possibilita o cadastro e edição e exclusão de uma moto, apresenta a lista das motos já cadastradas.
 - **Tela Perfil**: Exibe as informações do cadastro e possibilita o logout
+- **Ativação do IOT**: Ativa o IOT para localização da moto ( Simulação local, por precisar do ESP32 fisico para realização do mesmo)
 
 ## 👥 Integrantes
 
